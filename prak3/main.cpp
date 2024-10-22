@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include <set>
 #include <algorithm>
 #include <sstream>
@@ -9,11 +10,14 @@ using namespace std;
 int main(int argc, char* argv[]){
     setlocale(LC_ALL, "Russian");
     string t;
-    getline(cin,t);
-
+    vector<string> words;
+    cout << "Введите строку: " << endl;
+    getline(cin, t);
     istringstream iss(t);
+    
     string word;
     while(iss >> word) {
+	words.push_back(word);
 	if(word.length() % 2 == 0){
 	    string left_part_str = word.substr(0, word.length() / 2);
 	    string right_part_str =  word.substr(word.length() / 2);
@@ -28,17 +32,23 @@ int main(int argc, char* argv[]){
 	    if(difference.size() == 0){
 	    	cout << "Слово: " << word << endl;
 		int pair_count = 0;
-
-		for(auto &i: word){
+		set<char> symbols(word.begin(), word.end());
+		for(auto &i: symbols){
 		    int sym_count = count(word.begin(), word.end(), i);
 		    if(sym_count > 1){
 		    	pair_count += sym_count / 2;
 		    }
 		}
 		cout << "Кол-во пар: " << pair_count << endl;		
+	    	cout << endl;
 	    }
 	}
     }
+    cout << "Вывод текста: " << endl;
+    for(auto &i: words){
+        cout << i << " ";
+    }
+    cout << endl;
 	
     return 0;
 }
