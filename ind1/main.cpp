@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 #include <ctime>
 #include <string>
 #include <algorithm>
@@ -6,23 +7,35 @@
 using namespace std;
 
 int main() {
-    int n;
+    srand(time(0));
+    int n, flagg;
     cout << "Введите размер матрицы: ";
     cin >> n;
     if(n < 4 && n < 9){
          cout << "Вне диапазона";
         return 0;
     }
-    
+    cout << "1- ручной ввод \n2- рандомный выбор\nВыберите вариант ввода: ";
+    cin >> flagg; 
     vector<vector<int>> arr(n, vector<int>(n, 0));
     vector<int> linear_arr(n*n);
     linear_arr.clear();
     
+    if(flagg == 1){
     for(auto &i: arr){
         for(auto &j: i){
             cin >> j;
             linear_arr.push_back(j);
         }
+    }
+    }else{
+       for(auto &i: arr){
+        for(auto &j: i){
+	    j = rand() % 1000;
+            linear_arr.push_back(j);
+        }
+    }
+
     }
     
     for(auto &i: arr){
